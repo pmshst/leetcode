@@ -1,0 +1,33 @@
+复杂度O(n)
+思路：
+假设数组是 [2, 3, 4, 5, 4, 3]，那么最长的子数组一定只有一个，
+即取全部元素，这样能装的水的数量是 2 * 5 。
+接下去取我们的子元素，长度一定是会变小的，有两种情况，为 [2, 3, 4, 5, 4] 和 [3, 4, 5, 4, 3]。
+我们来看 [2, 3, 4, 5, 4]，这种情况下，显然比取全部元素求得的结果 10 要小，为什么这么说？因为两者的基准都是按 2 来算的，但是取全部元素长度大。
+
+似乎有点眉目了，再来看 [2, 3, 4, 5, 4, 3] 这个原始的数组，从中找出一个子数组，
+如果以 2 为子数组最左的元素，那么这个子数组求解的值（即装水的量），不可能比 [2, 3, 4, 5, 4, 3] 这个原始数组求到的 10 要大了，有木有？！
+因为该子数组装水的基准，是不可能比 2 大了的。
+这样，我们似乎可以用一点点贪心去解这道题，一步步缩小子数组的大小。
+
+
+
+class Solution:
+    def maxArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        length = len(height)
+        start = 0    
+        end = length -1
+        max_value = 0
+        while(start<end):
+            max_value = max(max_value,min(height[start],height[end])*(end - start))
+            if(height[start] > height[end]):
+                end -= 1
+            else:
+                start += 1
+                
+
+        return  max_value      
