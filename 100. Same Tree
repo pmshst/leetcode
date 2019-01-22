@@ -1,0 +1,30 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isSameTree(self, p, q):
+        """
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: bool
+        """
+        queue = [(p,q)]
+        while(len(queue)>0):
+            p, q = queue.pop()
+            if p and q and p.val == q.val:
+                queue.insert(0,(p.right, q.right))
+                queue.insert(0,(p.left, q.left))
+            elif p is None and q is None:
+                continue
+            else:
+                return False
+            
+        return True        
+                
+        
+            
+       
